@@ -1,0 +1,53 @@
+# Customer Order Management API
+
+This is a simple RESTful API built with Go (Golang) using the Echo framework. It demonstrates a basic customer and order management system, along with authentication using JWT tokens. The API follows the MVC pattern and clean architecture principles.
+
+## Features
+
+- Customer Management
+  - Get customers with pagination
+  - Get customer details
+  - Insert new customer
+  - Update existing customer
+  - Delete customer
+  - Search customers
+
+- Order Management
+  - Get orders with pagination
+  - Get order details
+  - Insert new order
+  - Update existing order
+  - Delete order
+  - Search orders
+
+- Authentication Management
+  - Get login data
+  - Insert login data
+
+- JWT token-based authentication for secure endpoints
+
+
+## Prerequisites
+
+- [Go](https://golang.org/dl/) 1.18 or later
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/yourusername/project.git
+   cd project
+
+2. **Run the application using Docker Compose:**
+
+    ```sh
+    docker-compose up --build
+
+3. **Run database migrations:**
+
+    ```sh
+    docker exec -it api /bin/sh -c "go run database/migration.go"
+
