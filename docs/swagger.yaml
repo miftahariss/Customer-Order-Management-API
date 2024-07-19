@@ -1,0 +1,422 @@
+basePath: /
+definitions:
+  model.Customers:
+    description: Customers model
+    properties:
+      address:
+        example: 123 Main St
+        type: string
+      created_at:
+        example: "2023-01-01T00:00:00Z"
+        type: string
+      email:
+        example: john.doe@example.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: John Doe
+        type: string
+      phone:
+        example: 123-456-7890
+        type: string
+      updated_at:
+        example: "2023-01-01T00:00:00Z"
+        type: string
+    type: object
+  model.Login:
+    description: Login model
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  model.Orders:
+    description: Orders model
+    properties:
+      created_at:
+        example: "2023-01-01T00:00:00Z"
+        type: string
+      customer_id:
+        example: 1
+        type: integer
+      id:
+        example: 1
+        type: integer
+      status:
+        example: pending
+        type: string
+      total:
+        example: 99.99
+        type: number
+      updated_at:
+        example: "2023-01-01T00:00:00Z"
+        type: string
+    type: object
+  model.Register:
+    description: Register model
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Echo Swagger Example API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Get JWT token for authentication
+      parameters:
+      - description: Login credentials
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/model.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Login'
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+      summary: Login user
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Get JWT token for authentication
+      parameters:
+      - description: Register credentials
+        in: body
+        name: Register
+        required: true
+        schema:
+          $ref: '#/definitions/model.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Register'
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+      summary: Register user
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: Get customers with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Customers'
+            type: array
+      summary: Get customers with pagination
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer
+      parameters:
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/model.Customers'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Customers'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Create a new customer
+  /customers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Customer not found
+          schema:
+            type: string
+      summary: Delete a customer
+    get:
+      consumes:
+      - application/json
+      description: Get customer by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Customers'
+        "404":
+          description: Customer not found
+          schema:
+            type: string
+      summary: Get customer by ID
+    put:
+      consumes:
+      - application/json
+      description: Update an existing customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/model.Customers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Customers'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Customer not found
+          schema:
+            type: string
+      summary: Update an existing customer
+  /customers/search:
+    get:
+      consumes:
+      - application/json
+      description: Search customers
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Customers'
+            type: array
+      summary: Search customers
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Get orders with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Orders'
+            type: array
+      summary: Get orders with pagination
+    post:
+      consumes:
+      - application/json
+      description: Create a new order
+      parameters:
+      - description: Order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/model.Orders'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Orders'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Create a new order
+  /orders/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an order
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: Order not found
+          schema:
+            type: string
+      summary: Delete an order
+    get:
+      consumes:
+      - application/json
+      description: Get order by ID
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Orders'
+        "404":
+          description: Order not found
+          schema:
+            type: string
+      summary: Get order by ID
+    put:
+      consumes:
+      - application/json
+      description: Update an existing order
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/model.Orders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Orders'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Order not found
+          schema:
+            type: string
+      summary: Update an existing order
+  /orders/search:
+    get:
+      consumes:
+      - application/json
+      description: Search orders
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Orders'
+            type: array
+      summary: Search orders
+swagger: "2.0"

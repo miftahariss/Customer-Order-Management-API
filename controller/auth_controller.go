@@ -19,6 +19,14 @@ func NewAuthController(service *service.AuthService) *AuthController {
 	return &AuthController{Service: service}
 }
 
+// @Summary Register user
+// @Description Get JWT token for authentication
+// @Accept  json
+// @Produce  json
+// @Param Register body model.Register true "Register credentials"
+// @Success 200 {object} model.Register
+// @Failure 401 {object} string "Unauthorized"
+// @Router /auth/register [post]
 func (a *AuthController) Register(ctx echo.Context) error {
 	username := ctx.FormValue("username")
 	password := ctx.FormValue("password")
@@ -30,6 +38,14 @@ func (a *AuthController) Register(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, "User registered successfully")
 }
 
+// @Summary Login user
+// @Description Get JWT token for authentication
+// @Accept  json
+// @Produce  json
+// @Param login body model.Login true "Login credentials"
+// @Success 200 {object} model.Login
+// @Failure 401 {object} string "Unauthorized"
+// @Router /auth/login [post]
 func (a *AuthController) Login(ctx echo.Context) error {
 	username := ctx.FormValue("username")
 	password := ctx.FormValue("password")

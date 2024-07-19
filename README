@@ -51,3 +51,9 @@ This is a simple RESTful API built with Go (Golang) using the Echo framework. It
     ```sh
     docker exec -it api /bin/sh -c "go run database/migration.go"
 
+4. **Accessing Swagger UI:**
+
+    ```sh
+    http://localhost:8080/swagger/index.html
+
+
