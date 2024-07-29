@@ -50,6 +50,3 @@ CREATE TRIGGER update_users_updated_at
 BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE update_updated_at_column();
-
-SELECT * FROM "users"  WHERE "users"."deleted_at" IS NULL AND ((username = 'miftahariss')) ORDER BY "users"."id" ASC LIMIT 1;
-select * from users u where username = 'miftahariss' and deleted_at is null;
