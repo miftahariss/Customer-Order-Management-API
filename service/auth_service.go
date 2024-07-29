@@ -23,7 +23,7 @@ func (s *AuthService) Register(username, password string) error {
 		return err
 	}
 
-	user := &model.User{
+	user := &model.Users{
 		Username: username,
 		Password: string(hashedPassword),
 	}
@@ -31,7 +31,7 @@ func (s *AuthService) Register(username, password string) error {
 	return s.Repo.Create(user)
 }
 
-func (s *AuthService) Login(username, password string) (*model.User, error) {
+func (s *AuthService) Login(username, password string) (*model.Users, error) {
 	user, err := s.Repo.FindByUsername(username)
 	if err != nil {
 		return nil, err

@@ -3,8 +3,8 @@ package model
 
 import "github.com/jinzhu/gorm"
 
-type User struct {
+type Users struct {
 	gorm.Model
-	Username string `json:"username" gorm:"unique;not null"`
-	Password string `json:"password" gorm:"not null"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
