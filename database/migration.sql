@@ -23,7 +23,8 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMPTZ default NULL
 );
 
 -- Trigger for updated_at
@@ -49,3 +50,6 @@ CREATE TRIGGER update_users_updated_at
 BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE update_updated_at_column();
+
+SELECT * FROM "users"  WHERE "users"."deleted_at" IS NULL AND ((username = 'miftahariss')) ORDER BY "users"."id" ASC LIMIT 1;
+select * from users u where username = 'miftahariss' and deleted_at is null;
