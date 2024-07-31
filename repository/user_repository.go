@@ -21,7 +21,7 @@ func (r *UserRepository) FindByUsername(username string) (*model.Users, error) {
 	if r.DB == nil {
 		return nil, fmt.Errorf("koneksi database tidak tersedia")
 	}
-	result := r.DB.Where("username = ?", username).Debug().First(&user)
+	result := r.DB.Where("username = ?", username).First(&user)
 	fmt.Println(result)
 	if result.Error != nil {
 		if result.Error == gorm.ErrRecordNotFound {
